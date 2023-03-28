@@ -1,5 +1,5 @@
 <template>
-    <v-card text="" width="300" height="400px" color="#675E94">
+  <v-card text="" width="300" height="400px" color="#675E94">
       <div class="text-h6 mb-1">Карточка питомца</div>
       <v-file-input color="#F5C7F7" accept="image/*" label="Фото питомца"></v-file-input>
       <div class="text-h6 mb-1">Информация о питомце</div>

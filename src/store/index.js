@@ -4,7 +4,8 @@ const store = createStore({
       return {
         user : false,
         auth : false,
-        token : false
+        token : false,
+        value : false,
       }
     },
     actions : {
@@ -40,19 +41,24 @@ const store = createStore({
             token : result.Access_token,
             user: result.user,
           });
-          return true;
+          return result.Refresh_token;
         }
         return false;
       },
       async editUser(ctx, user){
-        let data = JSON.stringify(user);
-        const res = await fetch("https://pets.aprograms.ru?class=User&action=changeUser", {
+        let data = JSON.stringify({auth: ctx.state.token, ...user});
+        const res = await fetch("https://pets.aprograms.ru?class=User&action=change", {
           method: "PUT",
           headers : {
             "Content-Type" : "appication/json;charset=utf-8"
           },
           body: data
         })
+        console.log(res);
+        if(res.ok){
+          let result = await res.json();
+          console.log(result);
+        }
       }
     },
     mutations : {
@@ -64,7 +70,8 @@ const store = createStore({
       }
     },
     getters : {}
-  })
+  }
+)
 
 // export default createStore({
 //   state: {

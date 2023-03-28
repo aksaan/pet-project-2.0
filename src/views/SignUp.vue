@@ -13,10 +13,13 @@
             </v-form>
         </v-card>
     </v-container>
+    <!-- <Watchertest></Watchertest> -->
 </template>
 
 <script>
+import Watchertest from '@/components/Watchertest.vue';
 export default {
+  components: { Watchertest },
     data(){
         return{
             name : "",
