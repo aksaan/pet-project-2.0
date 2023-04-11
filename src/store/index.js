@@ -54,11 +54,13 @@ const store = createStore({
           },
           body: data
         })
-        console.log(res);
-        if(res.ok){
-          let result = await res.json();
-          console.log(result);
-        }
+        return res.ok;
+      },
+      async exit(ctx){
+        ctx.commit("logout");
+        return true;
+      },
+      async stayOnline(ctx,Refresh_token){
       }
     },
     mutations : {
@@ -67,6 +69,11 @@ const store = createStore({
         state.auth = true;
         state.token = token;
         state.user = user;
+      },
+      logout(state){
+        state.auth = false;
+        state.token = false;
+        state.user = false;
       }
     },
     getters : {}

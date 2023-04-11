@@ -4,9 +4,10 @@ import SignIn from "../views/SignIn.vue"
 import SignUp from "../views/SignUp.vue"
 // import Registration from "../views/Registration.vue"
 // import Authorization from "../views/Authorization.vue"
-import Profile from "../views/Profile.vue" 
-// import Main from "../views/Main.vue"
-// import Shelter from "../views/Shelter.vue"
+import Profile from "../views/Profile.vue"  
+import Main from "../views/Main.vue"
+import Shelter from "../views/Shelter.vue"
+import ShelterPage from "../views/ShelterPage.vue"
 
 const routes = [
   {
@@ -28,6 +29,21 @@ const routes = [
     path : "/profile",
     component : Profile,
     name : "profile"
+  },
+  {
+    path : "/main",
+    component : Main,
+    name : "main"
+  },
+  {
+    path : "/shelter",
+    component : Shelter,
+    name : "shelter"
+  },
+  {
+    path : "/sheltpage",
+    component : ShelterPage,
+    name : "sheltpage"
   }
 ]
 

@@ -8,7 +8,7 @@
 import Information from "../components/Information.vue"
 export default {
     components : {
-        Information
+        Information,
     },
     data(){
         return{

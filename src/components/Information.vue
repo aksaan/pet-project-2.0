@@ -12,12 +12,13 @@
                     <v-btn variant="outlined" color="purple-lighten-3" size="small" elevation="5" :icon="(fields.email) ? 'mdi-check' : 'mdi-pencil'" @click="fields.email = !fields.email"></v-btn>
                 </v-row>
                 <v-row>
-                    <v-text-field type="password" label="Пароль" color="purple-lighten-3" v-model="password" :disabled="!fields.password"></v-text-field>
+                    <v-text-field :type="(passcheck) ? 'text' : 'password'" label="Пароль" color="purple-lighten-3" v-model="password" :disabled="!fields.password"></v-text-field>
+                    <v-btn variant="outlined" color="purple-lighten-3" size="small" elevation="5" :icon="(passcheck) ? 'mdi-eye-outline' : 'mdi-eye-off-outline'" @click="passcheck = !passcheck"></v-btn>
                     <v-btn variant="outlined" color="purple-lighten-3" size="small" elevation="5" :icon="(fields.password) ? 'mdi-check' : 'mdi-pencil'" @click="fields.password = !fields.password"></v-btn>
                 </v-row>
                 <v-row class="justify-space-around">
                     <v-btn variant="outlined" color="purple-lighten-3" class="mt-5" elevation="5" @click="registration($event)">Выйти</v-btn>
-                    <v-btn variant="outlined" color="purple-lighten-3" class="mt-5" elevation="5" @click="registration($event)">Стать приютом</v-btn>
+                    <router-link :to="{name: 'shelter'}"><v-btn variant="outlined" color="purple-lighten-3" class="mt-5" elevation="5">Стать приютом</v-btn></router-link>
                 </v-row>
             </v-form>
         </v-card>
@@ -35,7 +36,8 @@ export default {
         email : false,
         name : false,
         password : false
-        }
+        },
+        passcheck: false,
     }
     },
     computed:{
@@ -56,27 +58,44 @@ export default {
                     this.fields.name=true;
                 }
                 else {
-                    this.$store.dispatch("editUser", {field, value : this.name});
-                    this.fields.name=true;
+                    this.$store.dispatch("editUser", {field, value : this.name}).then(res => {
+                        console.log(res);
+                        if(res){
+                        this.fields.name=false;
+                        }
+                    })
                 }
-            }
-            if(field==="email"){
-                if(!this.fields.email)
-                this.fields.email=true;
-            }
-                else{
-                    this.$store.dispatch("editUser", {field, value : this.email});
+            } 
+            else if(field==="email"){
+                if(!this.fields.email){
                     this.fields.email=true;
                 }
-            if(field==="password"){
-                if(!this.fields.password)
-                this.fields.password=true;
-            }
                 else{
-                    this.$store.dispatch("editUser", {field, value : this.password});
-                    this.fields.password=true;
-                }  
+                    this.$store.dispatch("editUser", {field, value : this.email}).then(res => {
+                        console.log(res);
+                        if(res){
+                            this.fields.email=false;
+                        }
+                    })
+                }
             }
+            else if(field==="password"){
+                if(!this.fields.password) {
+                    this.fields.password=true;
+                }
+                else {
+                    this.$store.dispatch("editUser", {field, value : this.password}).then(res => {;
+                        console.log(res);
+                            if(res){
+                                this.fields.password=false;
+                            }
+                        })
+                    }
+                }
+            }
+        },
+        switchPass(){
+
         },
         editUser(){
 
