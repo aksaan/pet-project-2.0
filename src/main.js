@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
+import { VueDadata } from 'vue-dadata';
+import 'vue-dadata/dist/style.css';
 
 loadFonts()
 
@@ -15,4 +17,5 @@ createApp(App)
   .use(vuetify)
   .use(Vue)
   .use(VueCookies)
+  .use(VueDadata)
   .mount('#app')

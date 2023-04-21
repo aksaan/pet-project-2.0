@@ -6,6 +6,7 @@ const store = createStore({
         auth : false,
         token : false,
         value : false,
+        dadata_token : '86b2c5f1d70ab5267f205db70a10010eef7c973c'
       }
     },
     actions : {
@@ -61,6 +62,27 @@ const store = createStore({
         return true;
       },
       async stayOnline(ctx,Refresh_token){
+      }, 
+      async dadata(ctx, query){
+      let token = ctx.state.dadata_token
+      const res = await fetch("https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Token " + token
+        },
+      onSelect: function(suggestions){
+        console.log(suggestions);
+      },
+        body : JSON.stringify({query: query})
+        })
+        console.log(res);
+          if(res.ok){
+            let result = await res.json();
+            return(result);
+        }
       }
     },
     mutations : {

@@ -16,7 +16,7 @@
             <v-text-field label="E-mail" color="purple-lighten-3" v-model="email" :rules='rules.email'></v-text-field>
         </v-row>
         <v-row>
-            <v-text-field label="Основной адрес" color="purple-lighten-3" v-model="address"></v-text-field>
+           <v-autocomplete label="Основной адрес" color="purple-lighten-3" v-model="address" @input="dadata" :items = "addresses"></v-autocomplete>
         </v-row>
         <v-row>
             <v-textarea label="Описание" color="purple-lighten-3" v-model="feature"></v-textarea>
@@ -25,6 +25,7 @@
             <v-btn variant="outlined" color="purple-lighten-3" class="mt-5" elevation="5" @click="createShelter">Создать страницу приюта</v-btn>
             <v-btn variant="outlined" color="purple-lighten-3" class="mt-5" elevation="5">Выйти</v-btn>
         </v-row>
+        <!-- <vue-dadata v-model="query" :token="token"/> -->
       </v-form>  
     </v-card> 
   </v-container>
@@ -40,6 +41,9 @@ export default {
           email : "",
           address: "",
           feature : "",
+          token : '86b2c5f1d70ab5267f205db70a10010eef7c973c',
+          query : "",
+          addresses: [],
           rules: {
             photo: [
               value => !value || !value.length || value[0].size < 2000000 || 'Avatar size should be less than 2 MB!'
@@ -58,7 +62,29 @@ export default {
       createShelter(){
         console.log(this.photo);
       },
+      dadata(e){
+        let address = e.target.value;
+        this.$store.dispatch("dadata", address).then(result => 
+        {
+          console.log(result);
+          this.addresses = result.suggestions.map(el => el.value)
+        })
+      },
+        customFilter (item, queryText, itemText) {
+        this.$store.dispatch("dadata", this.address).then(result => 
+        {
+          console.log(result);
+          return this.addresses = result.suggestions.map(el => el.value)
+        })
+        },
+        save () {
+          this.isEditing = !this.isEditing
+          this.hasSaved = true
+        },
     }
+    //   mounted () {
+    //     this.$store.dispatch("dadata", "г.Красноярск Ленина 104").then(data => console.log(data))
+    // },
 }
 </script>
 

@@ -8,6 +8,7 @@ import Profile from "../views/Profile.vue"
 import Main from "../views/Main.vue"
 import Shelter from "../views/Shelter.vue"
 import ShelterPage from "../views/ShelterPage.vue"
+import SocialNetwork from "../views/SocialNetwork.vue"
 
 const routes = [
   {
@@ -44,6 +45,11 @@ const routes = [
     path : "/sheltpage",
     component : ShelterPage,
     name : "sheltpage"
+  },
+  {
+    path : "/socialnetwork",
+    component : SocialNetwork,
+    name : "socialnetwork"
   }
 ]
 
